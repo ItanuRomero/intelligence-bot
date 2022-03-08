@@ -2,6 +2,7 @@ import requests
 from decouple import config
 import json
 import os
+import time
 
 class Intelligence:
     def __init__(self):
@@ -24,6 +25,7 @@ class Intelligence:
                     response = self.create_reply(
                         text, is_first_message)
                     self.reply(response, chat_id)
+            time.sleep(10)
 
     def get_new_messages(self, update_id):
         new_messages_url = f'{self.bot_url}getUpdates?timeout=100'
