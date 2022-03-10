@@ -4,6 +4,7 @@ import json
 import os
 import time
 
+
 class Intelligence:
     def __init__(self):
         API_TOKEN = config('API_TOKEN')
@@ -33,9 +34,9 @@ class Intelligence:
             new_messages_url = f'{new_messages_url}&offset={update_id + 1}'
         result = requests.get(new_messages_url)
         return json.loads(result.content)
-    
+
     def create_reply(self, text, is_first_message):
-        if is_first_message == True or text.lower() in ('hi', 'hello'):
+        if is_first_message or text.lower() in ('hi', 'hello'):
             return f'''Hello. Test if I'm a idiot'''
         if text.lower() == 'are you inteligent?':
             return f'''Nope...'''

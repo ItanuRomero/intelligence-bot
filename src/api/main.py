@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from decouple import config
+from intelligence_api import reply
 
 app = Flask(__name__)
 
@@ -9,10 +9,12 @@ def base():
     return 'you accessed the base route'
 
 
-@app.route('/bot', methods=['GET', 'Post'])
+@app.route('/bot', methods=['Post'])
 def new_messages_listener():
     message = request.args.get('message')
-    message = {'text': message}
+    text = str(message['text'])
+    chat_id = message['from']['id']
+    reply(text, chat_id)
     return jsonify(message)
 
 
