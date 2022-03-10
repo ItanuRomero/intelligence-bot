@@ -12,9 +12,9 @@ def base():
 
 @app.route('/bot', methods=['Post'])
 def new_messages_listener():
-    message = request.get_json()
-    text = str(message['text'])
-    chat_id = message['from']['id']
+    message = request.get_json(force=True)
+    text = str(message['message']['text'])
+    chat_id = message['message']['from']['id']
     reply(text, chat_id)
     return jsonify(message)
 
