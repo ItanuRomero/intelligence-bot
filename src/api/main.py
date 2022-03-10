@@ -1,5 +1,6 @@
 from flask import Flask, request, jsonify
-from intelligence_api import reply
+import requests
+from decouple import config
 
 app = Flask(__name__)
 
@@ -16,6 +17,13 @@ def new_messages_listener():
     chat_id = message['from']['id']
     reply(text, chat_id)
     return jsonify(message)
+
+
+def reply(text, chat_id):
+    api_token = config('API_TOKEN')
+    bot_url = f'https://api.telegram.org/bot{api_token}/'
+    reply_user_url = f'{bot_url}sendMessage?chat_id={chat_id}&text={text}'
+    requests.get(reply_user_url)
 
 
 if __name__ == '__main__':
