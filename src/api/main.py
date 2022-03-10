@@ -11,7 +11,7 @@ def base():
 
 @app.route('/bot', methods=['Post'])
 def new_messages_listener():
-    message = request.args.get('message')
+    message = request.get_json()
     text = str(message['text'])
     chat_id = message['from']['id']
     reply(text, chat_id)
